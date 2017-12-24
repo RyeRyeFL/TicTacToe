@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic Tac Toe | Welcome</title>
+    <meta charset="utf-8">
+    </head>
+    
+    <body>
+    <script>
+    let userChoice =prompt('Pick rock, paper, or scissors!');
+    let userChoiceLowerCase = userChoice.toLowerCase();
+    let playerScore = 0;
+    let computerScore = 0;
+    let gameNumber = 0;
+        
+    console.log('Your choice: ' + userChoiceLowerCase);
+        
+    var computerChoice = Math.random();
+        if (computerChoice <= .33) {
+            computerChoice = 'paper';
+        } else if (computerChoice >= .66) {
+            computerChoice = 'rock';
+        } else {
+            computerChoice = 'scissors';
+        };
+        
+    console.log('Computer choice: ' + computerChoice);
+        
+    function playGame (computerChoice,userChoiceLowerCase){
+        if(computerChoice == userChoiceLowerCase) {return 'It is a draw'} 
+        else if(computerChoice == 'paper') {
+            if(userChoiceLowerCase == 'rock') {computerScore++;
+                return 'You lose! Paper beats rock.';
+            } else {playerScore++;
+                    return 'You win! Scissor beats paper.';};
+        } else if (computerChoice == 'rock') {
+            if (userChoiceLowerCase == 'paper') {playerScore++;
+            return 'You win! Paper beats rock.';}
+            else {computerScore++;
+                  return 'You lose! Rock beats scissor.';};
+        } else if (computerChoice == 'scissors') {
+            if (userChoiceLowerCase == 'rock') {playerScore++; return 'You win! Rock beats scissor.';}
+            else {computerScore++;return 'You lose! Scissor beats paper';};
+        } else {return 'Hmm...something is not right.'}
+    };
+    
+    console.log(playGame(computerChoice,userChoiceLowerCase));
+    
+    
+    function game(){
+        
+        while (gameNumber < 5) {
+            playGame(computerChoice,userChoiceLowerCase);
+            console.log(computerScore,playerScore,gameNumber);
+            gameNumber++;   
+        }
+    };
+    
+        console.log(game());
+       
+        
+    </script>
+    </body>
+</html>
