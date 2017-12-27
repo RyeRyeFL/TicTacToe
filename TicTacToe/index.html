@@ -1,63 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tic Tac Toe | Welcome</title>
+    <title>Rock Paper Scissors | Welcome</title>
     <meta charset="utf-8">
     </head>
     
     <body>
     <script>
-    let userChoice =prompt('Pick rock, paper, or scissors!');
-    let userChoiceLowerCase = userChoice.toLowerCase();
-    let playerScore = 0;
-    let computerScore = 0;
+       
+    
     let gameNumber = 0;
         
-    console.log('Your choice: ' + userChoiceLowerCase);
         
-    var computerChoice = Math.random();
-        if (computerChoice <= .33) {
-            computerChoice = 'paper';
-        } else if (computerChoice >= .66) {
-            computerChoice = 'rock';
+    function computerRandom() {
+        let computer = Math.random();
+        if (computer <= .33) {
+            return 'paper';
+        } else if (computer >= .66) {
+            return 'rock';
         } else {
-            computerChoice = 'scissors';
+            return 'scissors';
         };
-        
-    console.log('Computer choice: ' + computerChoice);
-        
-    function playGame (computerChoice,userChoiceLowerCase){
-        if(computerChoice == userChoiceLowerCase) {return 'It is a draw'} 
-        else if(computerChoice == 'paper') {
-            if(userChoiceLowerCase == 'rock') {computerScore++;
-                return 'You lose! Paper beats rock.';
-            } else {playerScore++;
-                    return 'You win! Scissor beats paper.';};
-        } else if (computerChoice == 'rock') {
-            if (userChoiceLowerCase == 'paper') {playerScore++;
-            return 'You win! Paper beats rock.';}
-            else {computerScore++;
-                  return 'You lose! Rock beats scissor.';};
-        } else if (computerChoice == 'scissors') {
-            if (userChoiceLowerCase == 'rock') {playerScore++; return 'You win! Rock beats scissor.';}
-            else {computerScore++;return 'You lose! Scissor beats paper';};
-        } else {return 'Hmm...something is not right.'}
     };
     
-    console.log(playGame(computerChoice,userChoiceLowerCase));
+    function playerChoice () {
+        let userChoice = prompt('Pick rock, paper, or scissors.');
+        let userChoiceLower = userChoice.toLowerCase();
+        return userChoiceLower;
+    }
+    
+
+    function playGame (){
+        let computerChoice = computerRandom();
+        let userChoiceLowerCase = playerChoice();
+        
+        if(computerChoice == userChoiceLowerCase) {
+            return 'It is a draw.';}; 
+        
+        if(computerChoice == 'paper') {
+            if(userChoiceLowerCase == 'rock') {
+                return 'You lose! Paper beats rock.';
+            } else if (userChoiceLowerCase == 'scissors') {
+                return 'You win! Scissor beats paper.';
+            }
+        }; 
+        
+        if (computerChoice == 'rock') {
+            if (userChoiceLowerCase == 'paper') {
+                return 'You win! Paper beats rock.';
+            }
+            else if (userChoiceLowerCase == 'scissors') {
+                return 'You lose! Rock beats scissor.';
+            }
+        }; 
+        
+        if (computerChoice == 'scissors') {
+            if (userChoiceLowerCase == 'rock') { 
+                return 'You win! Rock beats scissor.';
+            }
+            else if (userChoiceLowerCase == 'paper') {
+                return 'You lose! Scissor beats paper.';
+            }
+        };
+    };
+        
+    let playerScore = 0;
+    let computerScore = 0;
     
     
     function game(){
         
-        while (gameNumber < 5) {
-            playGame(computerChoice,userChoiceLowerCase);
-            console.log(computerScore,playerScore,gameNumber);
-            gameNumber++;   
-        }
+        while (gameNumber <= 4) {
+            let results = playGame();
+            if (results == 'You lose! Paper beats rock.' || results == 'You lose! Rock beats scissor.' || results == 'You lose! Scissor beats paper.') {computerScore++} 
+            else if (results === 'It is a draw.') {''} 
+            else {playerScore++};
+            
+            console.log(results,'Computer Score: ' + computerScore,'Player Score: ' + playerScore,'Game Number: ' + gameNumber);
+            
+            gameNumber++   
+        };
+    
+        if (computerScore > playerScore) {
+            return 'The computer wins ' + computerScore + ' to ' + playerScore + '.';
+        } else if (computerScore < playerScore) {
+            return 'You win ' + playerScore + ' to ' + computerScore + '.';
+        } else {return 'It is a tie.'};
     };
     
-        console.log(game());
-       
+        console.log(game());    
         
     </script>
     </body>
